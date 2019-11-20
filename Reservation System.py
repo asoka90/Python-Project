@@ -342,16 +342,15 @@ def edit_info():
 def payment():
         Y = "Y"
         N = "N"
-        cur.execute("SELECT NAME, MONTH, DATE, PACKAGE, BILL, BALANCE, STATUS, ISSUED, [CUSTOMER NO.] FROM customer_records")
-        rows = cur.fetchall()
-
-        #Get names
-        names = list()
-        for data in rows:
-                names.append(data[0].lower())
 
         valid = False
         while valid == False:
+                cur.execute("SELECT NAME, MONTH, DATE, PACKAGE, BILL, BALANCE, STATUS, ISSUED, [CUSTOMER NO.] FROM customer_records")
+                rows = cur.fetchall()
+                 #Get names
+                names = list()
+                for data in rows:
+                        names.append(data[0].lower())
                 searchName = input("Search customer name(0 to exit): ")
                 if searchName == "0":
                         print("Thank you.")
@@ -379,7 +378,7 @@ def payment():
                                                                         if k[6] == "TENTATIVE" or k[6] == "RESERVED":
                                                                                 payment = float(input("Minimum of ₱700 for the reservation\nEnter amount of payment: "))
                                                                                 payment = round(payment, 2)       
-                                                                                if payment >= 700 and k[6] == "TENTATIVE" and payment < k[5]:
+                                                                                if payment >= 700 and payment < k[5]:
                                                                                         valid_choice = False
                                                                                         while valid_choice == False:
                                                                                                 choice = input("\nAre you sure? Y/N: ")
@@ -470,16 +469,17 @@ def payment():
 def cancellation():
         Y = "Y"
         N = "N"
-        cur.execute("SELECT NAME, MONTH, DATE, PACKAGE, BILL, BALANCE, STATUS, ISSUED, [CUSTOMER NO.] FROM customer_records")
-        rows = cur.fetchall()
-
-        #Get names
-        names = list()
-        for data in rows:
-                names.append(data[0].lower())
+        
 
         valid = False
         while valid == False:
+                cur.execute("SELECT NAME, MONTH, DATE, PACKAGE, BILL, BALANCE, STATUS, ISSUED, [CUSTOMER NO.] FROM customer_records")
+                rows = cur.fetchall()
+
+                #Get names
+                names = list()
+                for data in rows:
+                        names.append(data[0].lower())
                 os.system('cls')
                 searchName = input("Search customer name(0 to exit): ")
                 if searchName == "0":
@@ -623,12 +623,12 @@ if __name__ == "__main__":
                                 valid = False
                                 while valid == False:
                                         try:
-                                                chc = int(input("1. Payment\n2. Cancel reservation\n0.Exit\n\nEnter choice: "))
+                                                chc = int(input("1. Payment\n2. Cancel reservation\n0. Exit\n\nEnter choice: "))
                                                 if chc == 0:
                                                         print("Exiting...")
                                                         valid = True
                                                         time.sleep(0.5)
-                                                if chc == 1:
+                                                elif chc == 1:
                                                         os.system('cls')
                                                         payment()
                                                 elif chc == 2:
