@@ -235,16 +235,17 @@ def edit_info():
         valid = False
         Y = "Y"
         N = "N"
-        cur.execute("SELECT NAME, CONTACTS, MONTH, DATE, VENUE, PACKAGE, BILL, BALANCE, STATUS, ISSUED FROM customer_records")
-        rows = cur.fetchall()
-
-        #Get names
-        names = list()
-        for data in rows:
-                names.append(data[0].lower())
-
+        
         valid = False
         while valid == False:
+                cur.execute("SELECT NAME, CONTACTS, MONTH, DATE, VENUE, PACKAGE, BILL, BALANCE, STATUS, ISSUED FROM customer_records")
+                rows = cur.fetchall()
+
+                #Get names
+                names = list()
+                for data in rows:
+                        names.append(data[0].lower())
+
                 searchName = input("Search customer name(0 to exit): ")
                 time.sleep(0.75)
                 os.system('cls')
